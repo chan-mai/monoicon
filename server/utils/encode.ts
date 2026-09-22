@@ -1,7 +1,10 @@
 import { encode as jpegEncode } from 'jpeg-js';
 import encodeWebp, { init as initWebp } from '@jsquash/webp/encode';
+import encodeJxl, { init as initJxl } from '@jsquash/jxl/encode';
 // @ts-expect-error wasmモジュール
 import WEBP_ENC_WASM from '@jsquash/webp/codec/enc/webp_enc.wasm';
+// @ts-expect-error wasmモジュール
+import JXL_ENC_WASM from '@jsquash/jxl/codec/enc/jxl_enc.wasm';
 
 export type Rgb = [number, number, number];
 
@@ -92,5 +95,21 @@ export async function encodeSolidWebp(size: number, rgb: Rgb): Promise<Uint8Arra
 		height: size,
 	} as ImageData;
 	const buf = await encodeWebp(image, { quality: 92 });
+	return new Uint8Array(buf);
+}
+
+let jxlReady = false;
+
+export async function encodeSolidJxl(size: number, rgb: Rgb): Promise<Uint8Array> {
+	if (!jxlReady) {
+		await initJxl(JXL_ENC_WASM);
+		jxlReady = true;
+	}
+	const image = {
+		data: solidRgba(size, rgb),
+		width: size,
+		height: size,
+	} as ImageData;
+	const buf = await encodeJxl(image, { quality: 92 });
 	return new Uint8Array(buf);
 }

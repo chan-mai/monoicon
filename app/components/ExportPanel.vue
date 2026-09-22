@@ -14,7 +14,10 @@ const { formatId, sizeChoice, customSizeInput, currentFormat, sizeError, fileLab
 					<ListboxButton
 						class="flex w-full items-center justify-between rounded-2xl border border-line bg-white px-5 py-3.5 text-sm font-medium focus:outline-none"
 					>
-						{{ currentFormat.label }}
+						<span class="flex items-center gap-2">
+							{{ currentFormat.label }}
+							<span v-if="currentFormat.deprecated" class="rounded-full bg-ink/5 px-2 py-0.5 text-[10px] font-medium text-sub">非推奨</span>
+						</span>
 						<Icon name="lucide:chevron-down" class="h-4 w-4 text-sub" />
 					</ListboxButton>
 					<ListboxOptions class="absolute z-10 mt-2 w-full rounded-2xl border border-line bg-white p-1.5 focus:outline-none">
@@ -23,7 +26,10 @@ const { formatId, sizeChoice, customSizeInput, currentFormat, sizeError, fileLab
 								class="flex cursor-pointer items-center justify-between rounded-xl px-4 py-2.5 text-sm"
 								:class="[active ? 'bg-paper' : '', selected ? 'font-semibold text-ink' : 'text-sub']"
 							>
-								{{ f.label }}
+								<span class="flex items-center gap-2">
+									{{ f.label }}
+									<span v-if="f.deprecated" class="rounded-full bg-ink/5 px-2 py-0.5 text-[10px] font-medium text-sub">非推奨</span>
+								</span>
 								<Icon v-if="selected" name="lucide:check" class="h-4 w-4" />
 							</li>
 						</ListboxOption>
