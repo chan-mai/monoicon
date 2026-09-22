@@ -50,7 +50,7 @@ async function deflate(data: Uint8Array): Promise<Uint8Array> {
 	return new Uint8Array(await new Response(stream).arrayBuffer());
 }
 
-export async function encodeSolidPng(size: number, [r, g, b]: Rgb): Promise<Uint8Array> {
+export async function encodeSolidPng(size: number, [r, g, b]: Rgb, displayP3 = false): Promise<Uint8Array> {
 	// フィルタ0のRGBスキャンライン
 	const stride = 1 + size * 3;
 	const raw = new Uint8Array(stride * size);
@@ -63,7 +63,9 @@ export async function encodeSolidPng(size: number, [r, g, b]: Rgb): Promise<Uint
 	for (let y = 1; y < size; y++) raw.copyWithin(y * stride, 0, stride);
 	const ihdr = concat(u32(size), u32(size), new Uint8Array([8, 2, 0, 0, 0]));
 	const idat = await deflate(raw);
-	return concat(PNG_SIG, chunk('IHDR', ihdr), chunk('IDAT', idat), chunk('IEND', new Uint8Array(0)));
+	// cICP: P3D65原色+sRGB伝達関数+RGB+フルレンジ
+	const cicp = displayP3 ? chunk('cICP', new Uint8Array([12, 13, 0, 1])) : new Uint8Array(0);
+	return concat(PNG_SIG, chunk('IHDR', ihdr), cicp, chunk('IDAT', idat), chunk('IEND', new Uint8Array(0)));
 }
 
 function solidRgba(size: number, [r, g, b]: Rgb): Uint8ClampedArray {

@@ -10,6 +10,13 @@ export function useExport() {
 
 	const currentFormat = computed(() => FORMATS.find((f) => f.id === formatId.value) ?? DEFAULT_FORMAT);
 
+	// sRGB外はPNGのみ書き出し可能
+	const colorInSrgb = computed(() => isInSrgb(color.value));
+
+	watch(colorInSrgb, (inSrgb) => {
+		if (!inSrgb && formatId.value !== 'png') formatId.value = 'png';
+	});
+
 	const customSize = computed<{ size: number | null; error: string }>(() => {
 		const raw = String(customSizeInput.value).trim();
 		if (raw === '') return { size: null, error: '' };
@@ -23,7 +30,7 @@ export function useExport() {
 
 	const fileLabel = computed(() => {
 		if (!resolvedSize.value) return '—';
-		return `monoicon-${normalizeHex(color.value).slice(1)}-${resolvedSize.value}.${currentFormat.value.ext}`;
+		return `monoicon-${colorToSlug(color.value)}-${resolvedSize.value}.${currentFormat.value.ext}`;
 	});
 
 	const downloading = useState('export-downloading', () => false);
@@ -35,11 +42,11 @@ export function useExport() {
 		downloading.value = true;
 		try {
 			const params = new URLSearchParams({
-				color: normalizeHex(color.value).slice(1),
+				color: color.value,
 				size: String(size),
 				format: formatId.value,
 			});
-			const blob = await $fetch<Blob>(`/api/v1/icon?${params.toString()}`, {
+			const blob = await $fetch<Blob>(`/api/v2/icon?${params.toString()}`, {
 				responseType: 'blob',
 			});
 			const url = URL.createObjectURL(blob);
@@ -59,6 +66,7 @@ export function useExport() {
 		sizeChoice,
 		customSizeInput,
 		currentFormat,
+		colorInSrgb,
 		sizeError,
 		resolvedSize,
 		fileLabel,

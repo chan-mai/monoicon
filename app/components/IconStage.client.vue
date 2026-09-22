@@ -118,8 +118,9 @@ function init(el: HTMLDivElement): () => void {
 		{ m: dustMat, v: 'tint' },
 	];
 
-	function applyColor(hex: string, animate: boolean) {
-		const vs = variants(hex);
+	function applyColor(css: string, animate: boolean) {
+		// oklch等はsRGB近似で表示
+		const vs = variants(cssToDisplayHex(css));
 		for (const t of colorTargets) {
 			const c = vs[t.v];
 			if (animate && !reduce) {

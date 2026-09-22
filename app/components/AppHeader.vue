@@ -3,7 +3,7 @@ const route = useRoute();
 
 const menu = [
 	{ to: '/', label: 'Home' },
-	{ to: '/docs', label: 'API Docs' },
+	{ to: '/docs/api/v2', label: 'API Docs', match: '/docs' },
 ];
 </script>
 
@@ -19,7 +19,7 @@ const menu = [
 				:key="item.to"
 				:to="item.to"
 				class="transition-colors hover:text-ink uppercase"
-				:class="route.path === item.to ? 'text-ink' : 'text-sub'"
+				:class="(item.match ? route.path.startsWith(item.match) : route.path === item.to) ? 'text-ink' : 'text-sub'"
 			>
 				{{ item.label }}
 			</NuxtLink>

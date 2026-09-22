@@ -7,7 +7,7 @@ const { resolvedSize, downloading, downloadCount, download } = useExport();
 
 await useAsyncData('palette-init', async () => {
 	if (palette.value.length === 0) {
-		const res = await $fetch<PaletteResponse>('/api/v1/palette');
+		const res = await $fetch<PaletteResponse>('/api/v2/palette');
 		palette.value = res.colors;
 		color.value = res.initial;
 	}
@@ -109,8 +109,8 @@ onMounted(() => {
 					<div
 						class="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2.5 rounded-full border border-line bg-white/85 py-2 pl-2.5 pr-4 backdrop-blur"
 					>
-						<span class="h-5 w-5 rounded-md border border-line" :style="{ backgroundColor: color }" />
-						<span class="text-sm tracking-[0.1em]">{{ color }}</span>
+						<span class="h-5 w-5 shrink-0 rounded-md border border-line" :style="{ backgroundColor: color }" />
+						<span class="whitespace-nowrap text-sm tracking-[0.1em]">{{ color }}</span>
 					</div>
 				</div>
 			</div>

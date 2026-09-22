@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useHead({ title: 'API Docs | monoicon' });
+useHead({ title: 'API Docs (v1) | monoicon' });
 useIntro();
 
 const iconParams = [
@@ -15,7 +15,7 @@ const iconErrors = [
 	'Invalid format: expected png, jpeg, webp or jxl',
 ];
 
-const { data: palette } = await useAsyncData('docs-palette', () => $fetch<PaletteResponse>('/api/v1/palette'));
+const { data: palette } = await useAsyncData('docs-palette-v1', () => $fetch<PaletteResponse>('/api/v1/palette'));
 const samples = computed(() => (palette.value?.colors ?? []).slice(0, 4).map((c) => c.slice(1)));
 
 const paletteExample = `{
@@ -30,8 +30,12 @@ const paletteExample = `{
 
 <template>
 	<main class="mx-auto w-full max-w-3xl px-5 pb-24 md:px-8">
-		<h1 class="mt-10 font-display text-3xl font-semibold tracking-tight md:mt-14" data-intro>API Docs</h1>
-		<p class="mt-3 text-sm leading-7 text-sub" data-intro>単色アイコン画像を返すHTTP APIです。認証は不要です。</p>
+		<h1 class="mt-10 font-display text-3xl font-semibold tracking-tight md:mt-14" data-intro>API Docs (v1)</h1>
+		<p class="mt-3 text-sm leading-7 text-sub" data-intro>
+			v1 APIの旧ドキュメントです。最新のドキュメントは
+			<NuxtLink to="/docs/api/v2" class="underline decoration-line underline-offset-4 hover:text-ink">API Docs</NuxtLink>
+			を参照してください。
+		</p>
 
 		<section class="mt-12" data-intro>
 			<h2 class="font-mono text-lg font-semibold">GET /api/v1/icon</h2>

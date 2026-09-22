@@ -2,7 +2,7 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions, RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
 
 const { color } = useIcon();
-const { formatId, sizeChoice, customSizeInput, currentFormat, sizeError, fileLabel } = useExport();
+const { formatId, sizeChoice, customSizeInput, currentFormat, colorInSrgb, sizeError, fileLabel } = useExport();
 </script>
 
 <template>
@@ -21,10 +21,21 @@ const { formatId, sizeChoice, customSizeInput, currentFormat, sizeError, fileLab
 						<Icon name="lucide:chevron-down" class="h-4 w-4 text-sub" />
 					</ListboxButton>
 					<ListboxOptions class="absolute z-10 mt-2 w-full rounded-2xl border border-line bg-white p-1.5 focus:outline-none">
-						<ListboxOption v-for="f in FORMATS" :key="f.id" v-slot="{ active, selected }" :value="f.id" as="template">
+						<ListboxOption
+							v-for="f in FORMATS"
+							:key="f.id"
+							v-slot="{ active, selected, disabled }"
+							:value="f.id"
+							:disabled="!colorInSrgb && f.id !== 'png'"
+							as="template"
+						>
 							<li
-								class="flex cursor-pointer items-center justify-between rounded-xl px-4 py-2.5 text-sm"
-								:class="[active ? 'bg-paper' : '', selected ? 'font-semibold text-ink' : 'text-sub']"
+								class="flex items-center justify-between rounded-xl px-4 py-2.5 text-sm"
+								:class="[
+									active ? 'bg-paper' : '',
+									selected ? 'font-semibold text-ink' : 'text-sub',
+									disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+								]"
 							>
 								<span class="flex items-center gap-2">
 									{{ f.label }}
@@ -36,6 +47,7 @@ const { formatId, sizeChoice, customSizeInput, currentFormat, sizeError, fileLab
 					</ListboxOptions>
 				</div>
 			</Listbox>
+			<p v-if="!colorInSrgb" class="mt-2 text-xs text-sub">選択色がsRGB色域外のため、書き出しはPNG(Display P3)のみ利用できます。</p>
 		</div>
 
 		<div>
