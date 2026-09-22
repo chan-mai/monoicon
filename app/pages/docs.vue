@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useHead({ title: 'API | monoicon' });
+useHead({ title: 'API Docs | monoicon' });
 
 const iconParams = [
 	{ name: 'color', type: 'string', required: true, desc: '6桁のHEXカラー(例: e0719a, #e0719a)' },
@@ -29,7 +29,7 @@ const paletteExample = `{
 
 <template>
 	<main class="mx-auto w-full max-w-3xl px-5 pb-24 md:px-8">
-		<h1 class="mt-10 font-display text-3xl font-semibold tracking-tight md:mt-14">API</h1>
+		<h1 class="mt-10 font-display text-3xl font-semibold tracking-tight md:mt-14">API Docs</h1>
 		<p class="mt-3 text-sm leading-7 text-sub">単色アイコン画像を返すHTTP APIです。認証は不要です。</p>
 
 		<section class="mt-12">
