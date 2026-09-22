@@ -9,6 +9,7 @@ export default defineNuxtConfig({
 		registry: {
 			googleAnalytics: {
 				id: 'G-2Q3WL18CQZ',
+				trigger: 'onNuxtReady',
 			},
 		},
 	},
