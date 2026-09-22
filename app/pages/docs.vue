@@ -74,6 +74,7 @@ const paletteExample = `{
 					:alt="`#${c}`"
 					width="48"
 					height="48"
+					draggable="false"
 					class="rounded-xl border border-line"
 				/>
 				<p class="text-xs text-sub">* 本APIで生成した画像</p>

@@ -29,6 +29,7 @@ export default defineNuxtConfig({
 			htmlAttrs: { lang: 'ja' },
 			title: 'monoicon',
 			meta: [{ name: 'description', content: 'A simple generator for monochrome icons.' }],
+			link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
 		},
 	},
 });
