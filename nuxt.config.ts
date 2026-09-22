@@ -1,5 +1,34 @@
+import tailwindcss from '@tailwindcss/vite';
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
-  devtools: { enabled: true }
-})
+	compatibilityDate: '2025-07-15',
+	devtools: { enabled: true },
+	modules: ['@nuxt/icon', '@nuxt/fonts'],
+	css: ['~/assets/css/main.css'],
+	vite: {
+		plugins: [tailwindcss()],
+	},
+	nitro: {
+		preset: 'cloudflare_module',
+		experimental: { wasm: true },
+	},
+	fonts: {
+		families: [
+			{ name: 'LINE Seed JP', provider: 'google', weights: [400, 700, 800] },
+			{ name: 'Righteous', provider: 'google', weights: [400] },
+			{
+				name: 'M PLUS Rounded 1c',
+				provider: 'google',
+				weights: [400, 500, 700],
+			},
+		],
+	},
+	app: {
+		head: {
+			htmlAttrs: { lang: 'ja' },
+			title: 'monoicon',
+			meta: [{ name: 'description', content: 'A simple generator for monochrome icons.' }],
+		},
+	},
+});
