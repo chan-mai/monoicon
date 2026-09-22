@@ -13,7 +13,7 @@ const querySchema = v.object({
 		),
 		'512',
 	),
-	format: v.optional(v.picklist(['png', 'jpeg', 'webp', 'jxl'], 'Invalid format: expected png, jpeg, webp or jxl'), 'png'),
+	format: v.optional(v.picklist(['png', 'jpeg', 'webp', 'jxl', 'ppm'], 'Invalid format: expected png, jpeg, webp, jxl or ppm'), 'png'),
 });
 
 export default defineEventHandler(async (event) => {
@@ -47,6 +47,8 @@ export default defineEventHandler(async (event) => {
 			body = encodeSolidJpeg(size, rgb);
 		} else if (format.id === 'webp') {
 			body = await encodeSolidWebp(size, rgb);
+		} else if (format.id === 'ppm') {
+			body = encodeSolidPpm(size, rgb);
 		} else {
 			body = await encodeSolidJxl(size, rgb);
 		}

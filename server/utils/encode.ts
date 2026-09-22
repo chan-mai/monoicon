@@ -84,6 +84,19 @@ export function encodeSolidJpeg(size: number, rgb: Rgb): Uint8Array {
 	return new Uint8Array(data);
 }
 
+export function encodeSolidPpm(size: number, [r, g, b]: Rgb): Uint8Array {
+	// P6バイナリ形式
+	const header = new TextEncoder().encode(`P6\n${size} ${size}\n255\n`);
+	const out = new Uint8Array(header.length + size * size * 3);
+	out.set(header);
+	for (let i = header.length; i < out.length; i += 3) {
+		out[i] = r;
+		out[i + 1] = g;
+		out[i + 2] = b;
+	}
+	return out;
+}
+
 let webpReady = false;
 
 export async function encodeSolidWebp(size: number, rgb: Rgb): Promise<Uint8Array> {

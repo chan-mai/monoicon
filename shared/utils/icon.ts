@@ -3,7 +3,7 @@ import * as v from 'valibot';
 export const SIZE_PRESETS = [256, 512, 1024];
 
 export interface IconFormat {
-	id: 'png' | 'jpeg' | 'webp' | 'jxl';
+	id: 'png' | 'jpeg' | 'webp' | 'jxl' | 'ppm';
 	label: string;
 	mime: string;
 	ext: string;
@@ -17,6 +17,7 @@ export const FORMATS: IconFormat[] = [
 	{ id: 'jpeg', label: 'JPEG', mime: 'image/jpeg', ext: 'jpg' },
 	{ id: 'webp', label: 'WebP', mime: 'image/webp', ext: 'webp' },
 	{ id: 'jxl', label: 'JPEG XL', mime: 'image/jxl', ext: 'jxl', deprecated: true },
+	{ id: 'ppm', label: 'PPM', mime: 'image/x-portable-pixmap', ext: 'ppm', deprecated: true },
 ];
 
 export const hexColorSchema = v.pipe(v.string(), v.trim(), v.regex(/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i, 'Use #RGB or #RRGGBB format'));

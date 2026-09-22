@@ -5,14 +5,14 @@ useIntro();
 const iconParams = [
 	{ name: 'color', type: 'string', required: true, desc: 'CSSカラー文字列(hex, rgb(), hsl(), oklch(), lab()等)' },
 	{ name: 'size', type: 'integer', required: false, desc: '1〜2048の整数。既定値は512' },
-	{ name: 'format', type: 'string', required: false, desc: 'png / jpeg / webp / jxl(非推奨)のいずれか。既定値はpng' },
+	{ name: 'format', type: 'string', required: false, desc: 'png / jpeg / webp / jxl(非推奨) / ppm(非推奨)のいずれか。既定値はpng' },
 	{ name: 'download', type: 'flag', required: false, desc: '付与するとContent-Disposition: attachmentで応答' },
 ];
 
 const iconErrors = [
 	'Invalid color: expected a CSS color',
 	'Invalid size: expected integer between 1 and 2048',
-	'Invalid format: expected png, jpeg, webp or jxl',
+	'Invalid format: expected png, jpeg, webp, jxl or ppm',
 	'Color is outside the sRGB gamut; use format=png',
 ];
 
@@ -68,7 +68,7 @@ const paletteExample = `{
 
 			<h3 class="mt-6 text-[11px] font-medium tracking-[0.2em] text-sub">RESPONSE</h3>
 			<p class="mt-2 text-sm leading-7 text-sub">
-				画像バイナリ(image/png, image/jpeg, image/webp, image/jxl)をレスポンスします。<code
+				画像バイナリ(image/png, image/jpeg, image/webp, image/jxl, image/x-portable-pixmap)をレスポンスします。<code
 					class="rounded bg-ink/5 px-1.5 py-0.5 font-mono text-xs"
 					>Cache-Control: public, max-age=31536000, immutable</code
 				>が付与されます。パラメータが不正な場合は400と以下のいずれかのメッセージをレスポンスします。
