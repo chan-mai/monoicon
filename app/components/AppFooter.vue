@@ -7,11 +7,16 @@ const yearLabel = computed(() => {
 </script>
 
 <template>
-	<footer class="fixed inset-x-0 bottom-0 z-10 pb-4 pt-2 text-center text-[11px] text-sub">
-		Copyright © {{ yearLabel }}
-		<NuxtLink to="https://mq1.dev/about" target="_blank" class="underline-offset-2 transition-colors hover:text-ink hover:underline"
-			>chan-mai</NuxtLink
-		>
-		All Rights Reserved.
+	<footer class="flex flex-col items-center gap-2 pb-6 pt-10 text-[11px] text-sub">
+		<NuxtLink to="https://github.com/chan-mai/monoicon" target="_blank" aria-label="GitHub" class="transition-colors hover:text-ink">
+			<Icon name="lucide:github" class="h-4 w-4" />
+		</NuxtLink>
+		<p>
+			Copyright © {{ yearLabel }}
+			<NuxtLink to="https://mq1.dev/about" target="_blank" class="underline-offset-2 transition-colors hover:text-ink hover:underline"
+				>chan-mai</NuxtLink
+			>
+			All Rights Reserved.
+		</p>
 	</footer>
 </template>
