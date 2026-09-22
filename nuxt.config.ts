@@ -5,12 +5,13 @@ export default defineNuxtConfig({
 	compatibilityDate: '2025-07-15',
 	devtools: { enabled: true },
 	modules: ['@nuxt/icon', '@nuxt/fonts', '@nuxt/scripts'],
-	scripts: {
-		registry: {
-			googleAnalytics: {
-				id: 'G-2Q3WL18CQZ',
-				// triggerを設定した場合のみ自動ロードされるため本番限定
-				...(process.env.NODE_ENV === 'production' ? { trigger: 'onNuxtReady' } : {}),
+	$production: {
+		scripts: {
+			registry: {
+				googleAnalytics: {
+					id: 'G-2Q3WL18CQZ',
+					trigger: 'onNuxtReady',
+				},
 			},
 		},
 	},
@@ -37,7 +38,16 @@ export default defineNuxtConfig({
 		head: {
 			htmlAttrs: { lang: 'ja' },
 			title: 'monoicon',
-			meta: [{ name: 'description', content: 'A simple generator for monochrome icons.' }],
+			meta: [
+				{ name: 'description', content: 'A simple generator for monochrome icons.' },
+				{ property: 'og:type', content: 'website' },
+				{ property: 'og:site_name', content: 'monoicon' },
+				{ property: 'og:title', content: 'monoicon' },
+				{ property: 'og:description', content: 'A simple generator for monochrome icons.' },
+				{ property: 'og:url', content: 'https://monoicon.mq1.dev' },
+				{ property: 'og:image', content: 'https://monoicon.mq1.dev/img/logo.png' },
+				{ name: 'twitter:card', content: 'summary' },
+			],
 			link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
 		},
 	},
