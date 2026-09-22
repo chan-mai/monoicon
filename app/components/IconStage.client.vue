@@ -4,7 +4,7 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { gsap } from 'gsap';
 
-const props = defineProps<{ color: string; step: number }>();
+const props = defineProps<{ color: string; step: number; pulse?: number }>();
 const emit = defineEmits<{ ready: [] }>();
 
 const host = ref<HTMLDivElement>();
@@ -271,6 +271,14 @@ function init(el: HTMLDivElement): () => void {
 		() => props.color,
 		(hex) => applyColor(hex, true),
 	);
+	// ダウンロード完了時のバウンス
+	const stopPulse = watch(
+		() => props.pulse,
+		() => {
+			if (reduce) return;
+			gsap.fromTo(tile.scale, { x: 0.85, y: 0.85, z: 0.85 }, { x: 1, y: 1, z: 1, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+		},
+	);
 
 	function onPointerMove(e: PointerEvent) {
 		const rect = el.getBoundingClientRect();
@@ -337,6 +345,7 @@ function init(el: HTMLDivElement): () => void {
 		cancelAnimationFrame(rafId);
 		stopStep();
 		stopColor();
+		stopPulse();
 		ro.disconnect();
 		el.removeEventListener('pointermove', onPointerMove);
 		el.removeEventListener('pointerleave', onPointerLeave);

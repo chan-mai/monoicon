@@ -27,6 +27,7 @@ export function useExport() {
 	});
 
 	const downloading = useState('export-downloading', () => false);
+	const downloadCount = useState('export-download-count', () => 0);
 
 	async function download() {
 		const size = resolvedSize.value;
@@ -47,6 +48,7 @@ export function useExport() {
 			a.download = fileLabel.value;
 			a.click();
 			URL.revokeObjectURL(url);
+			downloadCount.value++;
 		} finally {
 			downloading.value = false;
 		}
@@ -61,6 +63,7 @@ export function useExport() {
 		resolvedSize,
 		fileLabel,
 		downloading,
+		downloadCount,
 		download,
 	};
 }

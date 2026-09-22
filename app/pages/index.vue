@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import Lenis from 'lenis';
 
 const { color, palette } = useIcon();
-const { resolvedSize, downloading, download } = useExport();
+const { resolvedSize, downloading, downloadCount, download } = useExport();
 
 await useAsyncData('palette-init', async () => {
 	if (palette.value.length === 0) {
@@ -16,6 +16,22 @@ await useAsyncData('palette-init', async () => {
 
 const step = ref(0);
 const stageReady = ref(false);
+
+// ダウンロード完了表示
+const downloadButton = useTemplateRef('downloadButton');
+const justDownloaded = ref(false);
+let downloadedTimer: ReturnType<typeof setTimeout> | null = null;
+
+watch(downloadCount, () => {
+	justDownloaded.value = true;
+	if (downloadedTimer) clearTimeout(downloadedTimer);
+	downloadedTimer = setTimeout(() => {
+		justDownloaded.value = false;
+	}, 2000);
+	if (!reduce && downloadButton.value) {
+		gsap.fromTo(downloadButton.value, { scale: 0.92 }, { scale: 1, duration: 0.5, ease: 'back.out(3)' });
+	}
+});
 
 watch(step, () => {
 	if (import.meta.client) {
@@ -86,7 +102,7 @@ onMounted(() => {
 		<section class="mt-10 grid items-start gap-10 lg:mt-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
 			<div class="min-w-0 lg:sticky lg:top-8" data-intro>
 				<div class="relative">
-					<IconStage :color="color" :step="step" class="h-[360px] w-full md:h-[500px]" @ready="stageReady = true" />
+					<IconStage :color="color" :step="step" :pulse="downloadCount" class="h-[360px] w-full md:h-[500px]" @ready="stageReady = true" />
 					<div v-if="!stageReady" class="absolute inset-0 flex items-center justify-center">
 						<Icon name="lucide:loader-circle" class="h-8 w-8 animate-spin text-sub" />
 					</div>
@@ -134,13 +150,18 @@ onMounted(() => {
 					</button>
 					<button
 						v-else
+						ref="downloadButton"
 						type="button"
 						:disabled="!resolvedSize || downloading"
 						class="inline-flex items-center gap-2 rounded-full border-none bg-ink px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-85 disabled:opacity-40"
 						@click="download"
 					>
-						<Icon :name="downloading ? 'lucide:loader-circle' : 'lucide:download'" class="h-4 w-4" :class="downloading && 'animate-spin'" />
-						ダウンロード
+						<Icon
+							:name="downloading ? 'lucide:loader-circle' : justDownloaded ? 'lucide:check' : 'lucide:download'"
+							class="h-4 w-4"
+							:class="downloading && 'animate-spin'"
+						/>
+						{{ justDownloaded ? '保存しました' : 'ダウンロード' }}
 					</button>
 				</div>
 			</div>
