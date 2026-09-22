@@ -2,6 +2,7 @@
   "name": "monoicon",
   "type": "module",
   "private": true,
+  "packageManager": "pnpm@11.25.0",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -10,7 +11,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy": "nuxt build && wrangler deploy"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.23",
