@@ -3,8 +3,9 @@ import type { Rgb } from '../../utils/encode';
 
 const querySchema = v.object({
 	color: v.pipe(
-		v.string('Invalid color: expected 6-digit hex without #'),
-		v.regex(/^[0-9a-f]{6}$/i, 'Invalid color: expected 6-digit hex without #'),
+		v.string('Invalid color: expected 6-digit hex'),
+		v.transform((value) => value.replace(/^#/, '')),
+		v.regex(/^[0-9a-f]{6}$/i, 'Invalid color: expected 6-digit hex'),
 		v.toLowerCase(),
 	),
 	size: v.optional(
