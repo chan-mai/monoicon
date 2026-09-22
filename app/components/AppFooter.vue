@@ -18,5 +18,10 @@ const yearLabel = computed(() => {
 			>
 			All Rights Reserved.
 		</p>
+
+		<p class="mt-2 max-w-md px-5 text-center text-[10px] leading-5">
+			このサイトでは、アクセス解析のため、Google
+			Analyticsを使用しています。データは個人と紐付かない形で収集されており、個人を特定するものではありません。
+		</p>
 	</footer>
 </template>
