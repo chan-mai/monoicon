@@ -19,6 +19,9 @@ export default defineNuxtConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
+	routeRules: {
+		'/docs': { redirect: '/docs/api/v2' },
+	},
 	nitro: {
 		preset: 'cloudflare_module',
 		experimental: { wasm: true },
