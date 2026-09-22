@@ -10,11 +10,11 @@ const querySchema = v.object({
 	),
 	size: v.optional(
 		v.pipe(
-			v.string('Invalid size: expected integer between 16 and 2048'),
+			v.string('Invalid size: expected integer between 1 and 2048'),
 			v.transform(Number),
-			v.integer('Invalid size: expected integer between 16 and 2048'),
-			v.minValue(16, 'Invalid size: expected integer between 16 and 2048'),
-			v.maxValue(2048, 'Invalid size: expected integer between 16 and 2048'),
+			v.integer('Invalid size: expected integer between 1 and 2048'),
+			v.minValue(1, 'Invalid size: expected integer between 1 and 2048'),
+			v.maxValue(2048, 'Invalid size: expected integer between 1 and 2048'),
 		),
 		'512',
 	),

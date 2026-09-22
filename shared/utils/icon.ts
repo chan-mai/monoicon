@@ -24,7 +24,7 @@ export const hexColorSchema = v.pipe(v.string(), v.trim(), v.regex(/^#(?:[0-9a-f
 export const customSizeSchema = v.pipe(
 	v.number('Enter a number'),
 	v.integer('Enter an integer'),
-	v.minValue(16, 'Minimum size is 16'),
+	v.minValue(1, 'Minimum size is 1'),
 	v.maxValue(2048, 'Maximum size is 2048'),
 );
 
