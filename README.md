@@ -1,75 +1,43 @@
-# Nuxt Minimal Starter
+# monoicon
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+[![CI](https://img.shields.io/github/actions/workflow/status/chan-mai/monoicon/lint.yaml?branch=main&style=flat-square&logo=github&logoColor=white&label=CI&color=eadcf0)](https://github.com/chan-mai/monoicon/actions/workflows/lint.yaml)
+[![Site](https://img.shields.io/badge/site-monoicon.mq1.dev-eadcf0?style=flat-square)](https://monoicon.mq1.dev)
+![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white)
+![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?style=flat-square&logo=nuxt&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 
-## Setup
+いい感じの単色アイコンジェネレータ
 
-Make sure to install dependencies:
+https://monoicon.mq1.dev
+
+## 機能
+
+- パレット自動生成とカラーピッカによる色選択
+- Twitter / Misskeyでの表示プレビュー
+- 複数フォーマットでの書き出し
+
+## API
+
+- `GET /api/v1/icon` — color, size, formatを指定して単色画像を生成
+- `GET /api/v1/palette` — パレットを生成
+
+```
+https://monoicon.mq1.dev/api/v1/icon?color=eadcf0&size=512&format=png
+```
+
+詳細は[APIドキュメント](https://monoicon.mq1.dev/docs)を参照。
+
+## 開発
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+## デプロイ
 
-Build the application for production:
+Cloudflare Workers上で動作する。
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm run deploy
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
