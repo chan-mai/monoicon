@@ -9,7 +9,8 @@ export default defineNuxtConfig({
 		registry: {
 			googleAnalytics: {
 				id: 'G-2Q3WL18CQZ',
-				trigger: 'onNuxtReady',
+				// triggerを設定した場合のみ自動ロードされるため本番限定
+				...(process.env.NODE_ENV === 'production' ? { trigger: 'onNuxtReady' } : {}),
 			},
 		},
 	},

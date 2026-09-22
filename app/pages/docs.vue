@@ -1,5 +1,6 @@
 <script setup lang="ts">
 useHead({ title: 'API Docs | monoicon' });
+useIntro();
 
 const iconParams = [
 	{ name: 'color', type: 'string', required: true, desc: '6桁のHEXカラー(例: e0719a, #e0719a)' },
@@ -29,10 +30,10 @@ const paletteExample = `{
 
 <template>
 	<main class="mx-auto w-full max-w-3xl px-5 pb-24 md:px-8">
-		<h1 class="mt-10 font-display text-3xl font-semibold tracking-tight md:mt-14">API Docs</h1>
-		<p class="mt-3 text-sm leading-7 text-sub">単色アイコン画像を返すHTTP APIです。認証は不要です。</p>
+		<h1 class="mt-10 font-display text-3xl font-semibold tracking-tight md:mt-14" data-intro>API Docs</h1>
+		<p class="mt-3 text-sm leading-7 text-sub" data-intro>単色アイコン画像を返すHTTP APIです。認証は不要です。</p>
 
-		<section class="mt-12">
+		<section class="mt-12" data-intro>
 			<h2 class="font-mono text-lg font-semibold">GET /api/v1/icon</h2>
 			<p class="mt-2 text-sm leading-7 text-sub">指定した1色で塗りつぶした正方形の画像をレスポンスします。</p>
 
@@ -81,7 +82,7 @@ const paletteExample = `{
 			</div>
 		</section>
 
-		<section class="mt-12">
+		<section class="mt-12" data-intro>
 			<h2 class="font-mono text-lg font-semibold">GET /api/v1/palette</h2>
 			<p class="mt-2 text-sm leading-7 text-sub">ランダムパレット12色と初期選択色をレスポンスします。パラメータはありません。</p>
 
